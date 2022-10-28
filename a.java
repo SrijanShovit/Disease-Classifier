@@ -1,122 +1,139 @@
-// C++ Program to convert prefix to Infix
-#include <iostream>
-#include <stack>
-using namespace std;
+// C# program to find inorder
+// successor of a node
+using System;
 
-// function to check if character is operator or not
-bool isOperator(char x) {
-switch (x) {
-case '+':
-case '-':
-case '/':
-case '*':
-case '^':
-case '%':
-	return true;
-}
-return false;
+class GFG
+{
+	
+// A Binary Tree Node
+public class Node
+{
+	public int data;
+	public Node left, right;
 }
 
-// Convert prefix to Infix expression
-string preToInfix(string pre_exp) {
-stack<string> s;
+// Temporary node for case 2
+public static Node temp = new Node();
 
-// length of expression
-int length = pre_exp.size();
+// Utility function to create
+// a new tree node
+public static Node newNode(int data)
+{
+	Node temp = new Node();
+	temp.data = data;
+	temp.left = temp.right = null;
+	return temp;
+}
 
-// reading from right to left
-for (int i = length - 1; i >= 0; i--) {
+// function to find left most
+// node in a tree
+public static Node leftMostNode(Node node)
+{
+	while (node != null &&
+		node.left != null)
+	{
+		node = node.left;
+	}
+	return node;
+}
 
-	// check if symbol is operator
-	if (isOperator(pre_exp[i])) {
+// function to find right most
+// node in a tree
+public static Node rightMostNode(Node node)
+{
+	while (node != null &&
+		node.right != null)
+	{
+		node = node.right;
+	}
+	return node;
+}
 
-	// pop two operands from stack
-	string op1 = s.top(); s.pop();
-	string op2 = s.top(); s.pop();
-
-	// concat the operands and operator
-	string temp = "(" + op1 + pre_exp[i] + op2 + ")";
-
-	// Push string temp back to stack
-	s.push(temp);
+// recursive function to find the
+// Inorder Successor when the right
+// child of node x is null
+public static Node findInorderRecursive(Node root,
+										Node x)
+{
+	if (root == null)
+	{
+		return null;
 	}
 
-	// if symbol is an operand
-	else {
+	if (root == x ||
+	(temp = findInorderRecursive(root.left, x)) != null ||
+	(temp = findInorderRecursive(root.right, x)) != null)
+	{
+		if (temp != null)
+		{
+			if (root.left == temp)
+			{
+				Console.Write("Inorder Successor of " + x.data);
+				Console.Write(" is " + root.data + "\n");
+				return null;
+			}
+		}
 
-	// push the operand to the stack
-	s.push(string(1, pre_exp[i]));
+		return root;
 	}
+
+	return null;
 }
 
-// Stack now contains the Infix expression
-return s.top();
+// function to find inorder successor
+// of a node
+public static void inorderSuccessor(Node root, Node x)
+{
+	// Case1: If right child is not null
+	if (x.right != null)
+	{
+		Node inorderSucc = leftMostNode(x.right);
+		Console.Write("Inorder Successor of " +
+							x.data + " is ");
+		Console.Write(inorderSucc.data + "\n");
+	}
+
+	// Case2: If right child is null
+	if (x.right == null)
+	{
+		int f = 0;
+
+		Node rightMost = rightMostNode(root);
+
+		// case3: If x is the right most node
+		if (rightMost == x)
+		{
+			Console.Write("No inorder successor! " +
+							"Right most node.\n");
+		}
+		else
+		{
+			findInorderRecursive(root, x);
+		}
+	}
 }
 
 // Driver Code
-int main() {
-string pre_exp = "*-A/BC-/AKL";
-cout << "Infix : " << preToInfix(pre_exp);
-return 0;
-}
-// C++ Program to convert prefix to Infix
-#include <iostream>
-#include <stack>
-using namespace std;
+public static void Main(string[] args)
+{
+	// Let's construct the binary tree
+	// as shown in above diagram
+	Node root = newNode(1);
+	root.left = newNode(2);
+	root.right = newNode(3);
+	root.left.left = newNode(4);
+	root.left.right = newNode(5);
+	root.right.right = newNode(6);
 
-// function to check if character is operator or not
-bool isOperator(char x) {
-switch (x) {
-case '+':
-case '-':
-case '/':
-case '*':
-case '^':
-case '%':
-	return true;
+	// Case 1
+	inorderSuccessor(root, root.right);
+
+	// case 2
+	inorderSuccessor(root, root.left.left);
+
+	// case 3
+	inorderSuccessor(root, root.right.right);
 }
-return false;
 }
 
-// Convert prefix to Infix expression
-string preToInfix(string pre_exp) {
-stack<string> s;
-
-// length of expression
-int length = pre_exp.size();
-
-// reading from right to left
-for (int i = length - 1; i >= 0; i--) {
-
-	// check if symbol is operator
-	if (isOperator(pre_exp[i])) {
-
-	// pop two operands from stack
-	string op1 = s.top(); s.pop();
-	string op2 = s.top(); s.pop();
-
-	// concat the operands and operator
-	string temp = "(" + op1 + pre_exp[i] + op2 + ")";
-
-	// Push string temp back to stack
-	s.push(temp);
-	}
-
-	// if symbol is an operand
-	else {
-
-	// push the operand to the stack
-	s.push(string(1, pre_exp[i]));
-	}
-}
-
-// Stack now contains the Infix expression
-return s.top();
-}
-
-// Driver Code
-int main() {
-string pre_exp = "*-A/BC-/AKL";
-cout << "Infix : " << preToInfix(pre_exp);
-return 0;
-}
+// This code is contributed by Shrikant13
