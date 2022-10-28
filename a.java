@@ -73,7 +73,7 @@ int main()
 	Node* next = NULL;
 	inorderSuccessor(root, root, next);
 
-	// case 2
+	
 	next = NULL;
 	inorderSuccessor(root, root->left->left, next);
 
