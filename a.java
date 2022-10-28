@@ -69,7 +69,7 @@ int main()
 	root->right->left = newNode(6);
 	root->right->right = newNode(7);
 	
-	// Case 1
+	
 	Node* next = NULL;
 	inorderSuccessor(root, root, next);
 
