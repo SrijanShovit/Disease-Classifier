@@ -2,7 +2,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-// structure of a Binary Node.
+
 struct Node
 {
 	int data;
