@@ -77,7 +77,7 @@ int main()
 	next = NULL;
 	inorderSuccessor(root, root->left->left, next);
 
-	// case 3
+	
 	next = NULL;
 	inorderSuccessor(root, root->right->right, next);
 	
