@@ -1,4 +1,4 @@
-// C++ Program to find inorder successor.
+
 #include<bits/stdc++.h>
 using namespace std;
 
