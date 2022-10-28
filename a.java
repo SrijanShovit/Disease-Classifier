@@ -1,139 +1,87 @@
-// C# program to find inorder
-// successor of a node
-using System;
 
-class GFG
+#include<bits/stdc++.h>
+using namespace std;
+
+
+struct Node
 {
+	int data;
+	Node* left;
+	Node* right;
+};
+
+
+Node* newNode(int val)
+{
+	Node* temp = new Node;
+	temp->data = val;
+	temp->left = NULL;
+	temp->right = NULL;
 	
-// A Binary Tree Node
-public class Node
-{
-	public int data;
-	public Node left, right;
-}
-
-// Temporary node for case 2
-public static Node temp = new Node();
-
-// Utility function to create
-// a new tree node
-public static Node newNode(int data)
-{
-	Node temp = new Node();
-	temp.data = data;
-	temp.left = temp.right = null;
 	return temp;
 }
 
-// function to find left most
-// node in a tree
-public static Node leftMostNode(Node node)
+// function that prints the inorder successor
+// of a target node. next will point the last
+// tracked node, which will be the answer.
+void inorderSuccessor(Node* root,
+					Node* target_node,
+					Node* &next)
 {
-	while (node != null &&
-		node.left != null)
+	// if root is null then return
+	if(!root)
+		return;
+
+	inorderSuccessor(root->right, target_node, next);
+	
+	// if target node found then enter this condition
+	if(root->data == target_node->data)
 	{
-		node = node.left;
-	}
-	return node;
-}
-
-// function to find right most
-// node in a tree
-public static Node rightMostNode(Node node)
-{
-	while (node != null &&
-		node.right != null)
-	{
-		node = node.right;
-	}
-	return node;
-}
-
-// recursive function to find the
-// Inorder Successor when the right
-// child of node x is null
-public static Node findInorderRecursive(Node root,
-										Node x)
-{
-	if (root == null)
-	{
-		return null;
-	}
-
-	if (root == x ||
-	(temp = findInorderRecursive(root.left, x)) != null ||
-	(temp = findInorderRecursive(root.right, x)) != null)
-	{
-		if (temp != null)
-		{
-			if (root.left == temp)
-			{
-				Console.Write("Inorder Successor of " + x.data);
-				Console.Write(" is " + root.data + "\n");
-				return null;
-			}
-		}
-
-		return root;
-	}
-
-	return null;
-}
-
-// function to find inorder successor
-// of a node
-public static void inorderSuccessor(Node root, Node x)
-{
-	// Case1: If right child is not null
-	if (x.right != null)
-	{
-		Node inorderSucc = leftMostNode(x.right);
-		Console.Write("Inorder Successor of " +
-							x.data + " is ");
-		Console.Write(inorderSucc.data + "\n");
-	}
-
-	// Case2: If right child is null
-	if (x.right == null)
-	{
-		int f = 0;
-
-		Node rightMost = rightMostNode(root);
-
-		// case3: If x is the right most node
-		if (rightMost == x)
-		{
-			Console.Write("No inorder successor! " +
-							"Right most node.\n");
-		}
+		// this will be true to the last node
+		// in inorder traversal i.e., rightmost node.
+		if(next == NULL)
+			cout << "inorder successor of "
+				<< root->data << " is: null\n";
 		else
-		{
-			findInorderRecursive(root, x);
-		}
+			cout << "inorder successor of "
+				<< root->data << " is: "
+				<< next->data << "\n";
 	}
+	next = root;
+	inorderSuccessor(root->left, target_node, next);
 }
 
 // Driver Code
-public static void Main(string[] args)
+int main()
 {
+	
 	// Let's construct the binary tree
-	// as shown in above diagram
-	Node root = newNode(1);
-	root.left = newNode(2);
-	root.right = newNode(3);
-	root.left.left = newNode(4);
-	root.left.right = newNode(5);
-	root.right.right = newNode(6);
-
+	//		 1
+	// / \
+	// 2	 3
+	// / \ / \
+	// 4 5 6 7
+	Node* root = newNode(1);
+	root->left = newNode(2);
+	root->right = newNode(3);
+	root->left->left = newNode(4);
+	root->left->right = newNode(5);
+	root->right->left = newNode(6);
+	root->right->right = newNode(7);
+	
 	// Case 1
-	inorderSuccessor(root, root.right);
+	Node* next = NULL;
+	inorderSuccessor(root, root, next);
 
 	// case 2
-	inorderSuccessor(root, root.left.left);
+	next = NULL;
+	inorderSuccessor(root, root->left->left, next);
 
 	// case 3
-	inorderSuccessor(root, root.right.right);
-}
+	next = NULL;
+	inorderSuccessor(root, root->right->right, next);
+	
+	return 0;
 }
 
-// This code is contributed by Shrikant13
+
