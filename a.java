@@ -10,7 +10,7 @@ struct Node
 	Node* right;
 };
 
-// Function to create a new Node.
+
 Node* newNode(int val)
 {
 	Node* temp = new Node;
