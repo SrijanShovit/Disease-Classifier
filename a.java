@@ -1,228 +1,122 @@
-// Alternate method to declare the class
-// in order to minimize the
-// memory allocation work
-
-#include <bits/stdc++.h>
+// C++ Program to convert prefix to Infix
+#include <iostream>
+#include <stack>
 using namespace std;
 
-class node {
-public:
-	int data;
-	node* next;
-
-	// A constructor is called here
-	node(int value)
-	{
-
-		// It automatic assigns the
-		// value to the data
-		data = value;
-
-		// Next pointer is pointed to NULL
-		next = NULL;
-	}
-};
-
-// Function to insert an element
-// at head position
-void insertathead(node*& head, int val)
-{
-	node* n = new node(val);
-	n->next = head;
-	head = n;
+// function to check if character is operator or not
+bool isOperator(char x) {
+switch (x) {
+case '+':
+case '-':
+case '/':
+case '*':
+case '^':
+case '%':
+	return true;
+}
+return false;
 }
 
-// Function to insert a element
-// at a specified position
-void insertafter(node* head, int key, int val)
-{
-	node* n = new node(val);
-	if (key == head->data) {
-		n->next = head->next;
-		head->next = n;
-		return;
+// Convert prefix to Infix expression
+string preToInfix(string pre_exp) {
+stack<string> s;
+
+// length of expression
+int length = pre_exp.size();
+
+// reading from right to left
+for (int i = length - 1; i >= 0; i--) {
+
+	// check if symbol is operator
+	if (isOperator(pre_exp[i])) {
+
+	// pop two operands from stack
+	string op1 = s.top(); s.pop();
+	string op2 = s.top(); s.pop();
+
+	// concat the operands and operator
+	string temp = "(" + op1 + pre_exp[i] + op2 + ")";
+
+	// Push string temp back to stack
+	s.push(temp);
 	}
 
-	node* temp = head;
-	while (temp->data != key) {
-		temp = temp->next;
-		if (temp == NULL) {
-			return;
-		}
+	// if symbol is an operand
+	else {
+
+	// push the operand to the stack
+	s.push(string(1, pre_exp[i]));
 	}
-	n->next = temp->next;
-	temp->next = n;
 }
 
-// Function to insert an
-// element at the end
-void insertattail(node*& head, int val)
-{
-	node* n = new node(val);
-	if (head == NULL) {
-		head = n;
-		return;
-	}
-
-	node* temp = head;
-	while (temp->next != NULL) {
-		temp = temp->next;
-	}
-	temp->next = n;
+// Stack now contains the Infix expression
+return s.top();
 }
 
-// Function to print the
-// singly linked list
-void print(node*& head)
-{
-	node* temp = head;
-
-	while (temp != NULL) {
-		cout << temp->data << " -> ";
-		temp = temp->next;
-	}
-	cout << "NULL" << endl;
+// Driver Code
+int main() {
+string pre_exp = "*-A/BC-/AKL";
+cout << "Infix : " << preToInfix(pre_exp);
+return 0;
 }
-
-// Main function
-int main()
-{
-
-	// Declaring an empty linked list
-	node* head = NULL;
-
-	insertathead(head, 1);
-	insertathead(head, 2);
-	cout << "After insertion at head: ";
-	print(head);
-	cout << endl;
-
-	insertattail(head, 4);
-	insertattail(head, 5);
-	cout << "After insertion at tail: ";
-	print(head);
-	cout << endl;
-
-	insertafter(head, 1, 2);
-	insertafter(head, 5, 6);
-	cout << "After insertion at a given position: ";
-	print(head);
-	cout << endl;
-
-	return 0;
-}
-// contributed by divyanshmishra101010
-// Alternate method to declare the class
-// in order to minimize the
-// memory allocation work
-
-#include <bits/stdc++.h>
+// C++ Program to convert prefix to Infix
+#include <iostream>
+#include <stack>
 using namespace std;
 
-class node {
-public:
-	int data;
-	node* next;
-
-	// A constructor is called here
-	node(int value)
-	{
-
-		// It automatic assigns the
-		// value to the data
-		data = value;
-
-		// Next pointer is pointed to NULL
-		next = NULL;
-	}
-};
-
-// Function to insert an element
-// at head position
-void insertathead(node*& head, int val)
-{
-	node* n = new node(val);
-	n->next = head;
-	head = n;
+// function to check if character is operator or not
+bool isOperator(char x) {
+switch (x) {
+case '+':
+case '-':
+case '/':
+case '*':
+case '^':
+case '%':
+	return true;
+}
+return false;
 }
 
-// Function to insert a element
-// at a specified position
-void insertafter(node* head, int key, int val)
-{
-	node* n = new node(val);
-	if (key == head->data) {
-		n->next = head->next;
-		head->next = n;
-		return;
+// Convert prefix to Infix expression
+string preToInfix(string pre_exp) {
+stack<string> s;
+
+// length of expression
+int length = pre_exp.size();
+
+// reading from right to left
+for (int i = length - 1; i >= 0; i--) {
+
+	// check if symbol is operator
+	if (isOperator(pre_exp[i])) {
+
+	// pop two operands from stack
+	string op1 = s.top(); s.pop();
+	string op2 = s.top(); s.pop();
+
+	// concat the operands and operator
+	string temp = "(" + op1 + pre_exp[i] + op2 + ")";
+
+	// Push string temp back to stack
+	s.push(temp);
 	}
 
-	node* temp = head;
-	while (temp->data != key) {
-		temp = temp->next;
-		if (temp == NULL) {
-			return;
-		}
+	// if symbol is an operand
+	else {
+
+	// push the operand to the stack
+	s.push(string(1, pre_exp[i]));
 	}
-	n->next = temp->next;
-	temp->next = n;
 }
 
-// Function to insert an
-// element at the end
-void insertattail(node*& head, int val)
-{
-	node* n = new node(val);
-	if (head == NULL) {
-		head = n;
-		return;
-	}
-
-	node* temp = head;
-	while (temp->next != NULL) {
-		temp = temp->next;
-	}
-	temp->next = n;
+// Stack now contains the Infix expression
+return s.top();
 }
 
-// Function to print the
-// singly linked list
-void print(node*& head)
-{
-	node* temp = head;
-
-	while (temp != NULL) {
-		cout << temp->data << " -> ";
-		temp = temp->next;
-	}
-	cout << "NULL" << endl;
+// Driver Code
+int main() {
+string pre_exp = "*-A/BC-/AKL";
+cout << "Infix : " << preToInfix(pre_exp);
+return 0;
 }
-
-// Main function
-int main()
-{
-
-	// Declaring an empty linked list
-	node* head = NULL;
-
-	insertathead(head, 1);
-	insertathead(head, 2);
-	cout << "After insertion at head: ";
-	print(head);
-	cout << endl;
-
-	insertattail(head, 4);
-	insertattail(head, 5);
-	cout << "After insertion at tail: ";
-	print(head);
-	cout << endl;
-
-	insertafter(head, 1, 2);
-	insertafter(head, 5, 6);
-	cout << "After insertion at a given position: ";
-	print(head);
-	cout << endl;
-
-	return 0;
-}
-// contributed by divyanshmishra101010
