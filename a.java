@@ -1,143 +1,228 @@
-// A complete working C++ program to
-// demonstrate all insertion methods
-// on Linked List
+// Alternate method to declare the class
+// in order to minimize the
+// memory allocation work
+
 #include <bits/stdc++.h>
 using namespace std;
 
-// A linked list node
-class Node
-{
-	public:
+class node {
+public:
 	int data;
-	Node *next;
+	node* next;
+
+	// A constructor is called here
+	node(int value)
+	{
+
+		// It automatic assigns the
+		// value to the data
+		data = value;
+
+		// Next pointer is pointed to NULL
+		next = NULL;
+	}
 };
 
-// Given a reference (pointer to pointer)
-// to the head of a list and an int, inserts
-// a new node on the front of the list.
-void push(Node** head_ref, int new_data)
+// Function to insert an element
+// at head position
+void insertathead(node*& head, int val)
 {
-
-	// 1. allocate node
-	Node* new_node = new Node();
-
-	// 2. put in the data
-	new_node->data = new_data;
-
-	// 3. Make next of new node as head
-	new_node->next = (*head_ref);
-
-	// 4. move the head to point
-	// to the new node
-	(*head_ref) = new_node;
+	node* n = new node(val);
+	n->next = head;
+	head = n;
 }
 
-// Given a node prev_node, insert a new
-// node after the given prev_node
-void insertAfter(Node* prev_node, int new_data)
+// Function to insert a element
+// at a specified position
+void insertafter(node* head, int key, int val)
 {
-	// 1. check if the given prev_node
-	// is NULL
-	if (prev_node == NULL)
-	{
-		cout<<"The given previous node cannot be NULL";
+	node* n = new node(val);
+	if (key == head->data) {
+		n->next = head->next;
+		head->next = n;
 		return;
 	}
 
-	// 2. allocate new node
-	Node* new_node = new Node();
-
-	// 3. put in the data
-	new_node->data = new_data;
-
-	// 4. Make next of new node
-	// as next of prev_node
-	new_node->next = prev_node->next;
-
-	// 5. move the next of prev_node
-	// as new_node
-	prev_node->next = new_node;
+	node* temp = head;
+	while (temp->data != key) {
+		temp = temp->next;
+		if (temp == NULL) {
+			return;
+		}
+	}
+	n->next = temp->next;
+	temp->next = n;
 }
 
-// Given a reference (pointer to pointer)
-// to the head of a list and an int,
-// appends a new node at the end
-void append(Node** head_ref, int new_data)
+// Function to insert an
+// element at the end
+void insertattail(node*& head, int val)
 {
-
-	// 1. allocate node
-	Node* new_node = new Node();
-
-	//used in step 5
-	Node *last = *head_ref;
-
-	// 2. put in the data
-	new_node->data = new_data;
-
-	/* 3. This new node is going to be
-	the last node, so make next of
-	it as NULL*/
-	new_node->next = NULL;
-
-	/* 4. If the Linked List is empty,
-	then make the new node as head */
-	if (*head_ref == NULL)
-	{
-		*head_ref = new_node;
+	node* n = new node(val);
+	if (head == NULL) {
+		head = n;
 		return;
 	}
 
-	/* 5. Else traverse till the last node */
-	while (last->next != NULL)
-	{
-		last = last->next;
+	node* temp = head;
+	while (temp->next != NULL) {
+		temp = temp->next;
 	}
-
-	/* 6. Change the next of last node */
-	last->next = new_node;
-	return;
+	temp->next = n;
 }
 
-// This function prints contents of
-// linked list starting from head
-void printList(Node *node)
+// Function to print the
+// singly linked list
+void print(node*& head)
 {
-	while (node != NULL)
-	{
-		cout<<" "<<node->data;
-		node = node->next;
+	node* temp = head;
+
+	while (temp != NULL) {
+		cout << temp->data << " -> ";
+		temp = temp->next;
 	}
+	cout << "NULL" << endl;
 }
 
-// Driver code
+// Main function
 int main()
 {
 
-	// Start with the empty list
-	Node* head = NULL;
-	
-	// Insert 6. So linked list becomes 6->NULL
-	append(&head, 6);
-	
-	// Insert 7 at the beginning.
-	// So linked list becomes 7->6->NULL
-	push(&head, 7);
-	
-	// Insert 1 at the beginning.
-	// So linked list becomes 1->7->6->NULL
-	push(&head, 1);
-	
-	// Insert 4 at the end. So
-	// linked list becomes 1->7->6->4->NULL
-	append(&head, 4);
-	
-	// Insert 8, after 7. So linked
-	// list becomes 1->7->8->6->4->NULL
-	insertAfter(head->next, 8);
-	
-	cout<<"Created Linked list is: ";
-	printList(head);
-	
+	// Declaring an empty linked list
+	node* head = NULL;
+
+	insertathead(head, 1);
+	insertathead(head, 2);
+	cout << "After insertion at head: ";
+	print(head);
+	cout << endl;
+
+	insertattail(head, 4);
+	insertattail(head, 5);
+	cout << "After insertion at tail: ";
+	print(head);
+	cout << endl;
+
+	insertafter(head, 1, 2);
+	insertafter(head, 5, 6);
+	cout << "After insertion at a given position: ";
+	print(head);
+	cout << endl;
+
 	return 0;
 }
-// This code is contributed by rathbhupendra, arkajyotibasak
+// contributed by divyanshmishra101010
+// Alternate method to declare the class
+// in order to minimize the
+// memory allocation work
+
+#include <bits/stdc++.h>
+using namespace std;
+
+class node {
+public:
+	int data;
+	node* next;
+
+	// A constructor is called here
+	node(int value)
+	{
+
+		// It automatic assigns the
+		// value to the data
+		data = value;
+
+		// Next pointer is pointed to NULL
+		next = NULL;
+	}
+};
+
+// Function to insert an element
+// at head position
+void insertathead(node*& head, int val)
+{
+	node* n = new node(val);
+	n->next = head;
+	head = n;
+}
+
+// Function to insert a element
+// at a specified position
+void insertafter(node* head, int key, int val)
+{
+	node* n = new node(val);
+	if (key == head->data) {
+		n->next = head->next;
+		head->next = n;
+		return;
+	}
+
+	node* temp = head;
+	while (temp->data != key) {
+		temp = temp->next;
+		if (temp == NULL) {
+			return;
+		}
+	}
+	n->next = temp->next;
+	temp->next = n;
+}
+
+// Function to insert an
+// element at the end
+void insertattail(node*& head, int val)
+{
+	node* n = new node(val);
+	if (head == NULL) {
+		head = n;
+		return;
+	}
+
+	node* temp = head;
+	while (temp->next != NULL) {
+		temp = temp->next;
+	}
+	temp->next = n;
+}
+
+// Function to print the
+// singly linked list
+void print(node*& head)
+{
+	node* temp = head;
+
+	while (temp != NULL) {
+		cout << temp->data << " -> ";
+		temp = temp->next;
+	}
+	cout << "NULL" << endl;
+}
+
+// Main function
+int main()
+{
+
+	// Declaring an empty linked list
+	node* head = NULL;
+
+	insertathead(head, 1);
+	insertathead(head, 2);
+	cout << "After insertion at head: ";
+	print(head);
+	cout << endl;
+
+	insertattail(head, 4);
+	insertattail(head, 5);
+	cout << "After insertion at tail: ";
+	print(head);
+	cout << endl;
+
+	insertafter(head, 1, 2);
+	insertafter(head, 5, 6);
+	cout << "After insertion at a given position: ";
+	print(head);
+	cout << endl;
+
+	return 0;
+}
+// contributed by divyanshmishra101010
