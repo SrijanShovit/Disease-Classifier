@@ -55,7 +55,7 @@ void inorderSuccessor(Node* root,
 int main()
 {
 	
-	
+
 	// / \ / \
 	// 4 5 6 7
 	Node* root = newNode(1);
