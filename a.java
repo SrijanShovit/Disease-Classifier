@@ -61,7 +61,7 @@ int main()
 	// 2	 3
 	// / \ / \
 	// 4 5 6 7
-	Node* root = newNode(1);
+	Node* root =  newNode(1);
 	root->left = newNode(2);
 	root->right = newNode(3);
 	root->left->left =  newNode(4);
