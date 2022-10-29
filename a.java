@@ -70,7 +70,7 @@ int main()
 	root->right->right = newNode(7);
 	
 
-	Node* next = NULL;
+	Node* next =  NULL; 
 	inorderSuccessor(root,root, next);
 
 	
