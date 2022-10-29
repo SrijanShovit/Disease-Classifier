@@ -55,10 +55,7 @@ void inorderSuccessor(Node* root,
 int main()
 {
 	
-	// Let's construct the binary tree
-	//		 1
-	// / \
-	// 2	 3
+	
 	// / \ / \
 	// 4 5 6 7
 	Node* root = newNode(1);
