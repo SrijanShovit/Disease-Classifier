@@ -68,7 +68,6 @@ int main()
 
 	Node* next =  NULL; 
 	inorderSuccessor(root,root, next) ;
-
 	
 	next = NULL;
 	inorderSuccessor(root, root->left->left, next);
