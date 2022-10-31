@@ -71,6 +71,7 @@ int main()
 	inorderSuccessor(root,root->left->left, next );
 	 
 
+	
 	next =  NULL ;
 	inorderSuccessor(root,  root->  right->right, next);
 	return 0;
