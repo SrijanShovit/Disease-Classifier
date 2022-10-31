@@ -73,7 +73,7 @@ int main()
 	next = NULL;
 	inorderSuccessor(root,  root->right->right, next);
 	
-	return  0;
+	return 0;
 }
 
 
