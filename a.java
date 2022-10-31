@@ -68,9 +68,9 @@ int main()
 	Node* next =   NULL ;
 	inorderSuccessor(root,root, next) ;
 	next = NULL;
-	inorderSuccessor(root, root->left->left, next );
+	inorderSuccessor(root,root->left->left, next );
 	 
-	
+
 	next =  NULL ;
 	inorderSuccessor(root,  root->  right->right, next);
 	return 0;
