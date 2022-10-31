@@ -63,7 +63,6 @@ int main()
 	root->left->left = newNode(4);
 	root->left->right = newNode(5);
 
-
 	root->right->left = newNode(6) ;
 	root->right->right = newNode(7)  ;
 	Node* next =   NULL  ;
